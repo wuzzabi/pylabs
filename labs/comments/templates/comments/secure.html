@@ -1,0 +1,21 @@
+{% extends 'comments/base.html' %}
+{% block content %}
+  <a href="{% url 'serv_mon_list' %}" class='btn btn-success'>Back to MainPage</a>
+  {% if user.is_authenticated %}
+      <p>Logged as {{ user.username }}</p>
+      <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">
+        Login with Google
+      </a>
+    {% endif %}
+  {% for servmonitor in servmonitor_list %}
+    <div class="otakoi">
+      <ul class="list-group">
+        <a href="{{ servmonitor.get_absolute_url }}" class="list-group-item">{{ servmonitor.name }}</a>
+        <li class="list-group-item">{{ servmonitor.email}}</li>
+        <li class="list-group-item">{{ servmonitor.group }}</li>
+      </ul>
+    </div>
+  {% endfor %}
+{% endblock content%}
